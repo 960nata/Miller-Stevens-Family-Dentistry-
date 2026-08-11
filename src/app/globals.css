@@ -1,26 +1,201 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* Brand ------------------------------------------------------------ */
+  --color-ink: #0a1c25;
+  --color-ink-2: #3d5560;
+  --color-ink-3: #6b8290;
+
+  --color-brand: #0e7c8b;
+  --color-brand-dark: #0a5b66;
+  --color-brand-mid: #14a0b3;
+  --color-brand-tint: #e6f3f5;
+  --color-brand-tint-2: #f2f9fa;
+
+  --color-sand: #b48a4a;
+  --color-sand-tint: #f7f1e6;
+
+  --color-surface: #f5f8f9;
+  --color-line: #e2ebee;
+
+  /* Editorial palette (homepage / Dentora-style layout) ---------------- */
+  --color-mute: #a9b3b8; /* teks besar abu-abu */
+  --color-aqua: #58aecb; /* aksen tombol bulat & progress */
+  --color-aqua-dark: #3f94b2;
+  --color-shell: #f2f4f5; /* latar section & footer */
+  --color-hairline: #e6e9ea;
+
+  /* Type -------------------------------------------------------------- */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-serif), Georgia, serif;
+  --font-tight: var(--font-inter-tight), var(--font-inter), sans-serif;
+
+  /* Motion ------------------------------------------------------------ */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  body {
+    background: #ffffff;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Visible, high-contrast focus for keyboard users (ADA) */
+  :focus-visible {
+    outline: 3px solid var(--color-brand);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: #fff;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  .container-page {
+    width: 100%;
+    max-width: 80rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-page {
+      padding-inline: 1.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-page {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  /* Judul editorial: grotesque ketat, seperti mockup Dentora */
+  .font-tight {
+    font-family: var(--font-tight);
+    letter-spacing: -0.03em;
+  }
+
+  .container-wide {
+    width: 100%;
+    max-width: 86rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .container-wide {
+      padding-inline: 1.75rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-wide {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  /* Label pil bergaris — "About Us", "Feature Treatment" */
+  .pill-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--color-hairline);
+    border-radius: 999px;
+    padding: 0.4375rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--color-ink-2);
+    background: #fff;
+  }
+
+  /* Strip penggaris di bawah hero */
+  .ruler {
+    height: 0.625rem;
+    background-image: repeating-linear-gradient(
+      to right,
+      #dde2e4 0 1px,
+      transparent 1px 9px
+    );
+  }
+}
+
+/* Entrance animation — respects reduced-motion */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.animate-rise {
+  animation: rise 0.7s var(--ease-out-soft) both;
+}
+
+/* Bar nav putih di homepage muncul turun setelah hero terlewati */
+@keyframes slide-down {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+.animate-slide-down {
+  animation: slide-down 0.35s var(--ease-out-soft) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
