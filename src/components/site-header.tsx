@@ -234,51 +234,38 @@ export default function SiteHeader() {
       >
         <div className="container-wide py-6">
           <ul className="space-y-1">
-            {nav.map((item) => {
-              if (item.children) {
-                return (
-                  <li key={item.href} className="group">
-                    <button
-                      className="w-full flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-semibold text-ink transition-colors hover:bg-surface"
-                      onClick={(e) => {
-                        e.currentTarget.parentElement?.classList.toggle('open');
-                      }}
-                    >
-                      {item.label}
-                      <Icon name="arrow" className="h-4 w-4 text-ink-3 transition-transform group-open:rotate-180" />
-                    </button>
-                    <ul className="hidden space-y-1 pl-4 pt-1 group-open:block">
-                      {services.map((s) => (
-                        <li key={s.slug}>
-                          <Link
-                            href={`/services/${s.slug}`}
-                            className="flex items-center gap-3 rounded-2xl px-4 py-3 text-ink-2 transition-colors hover:bg-surface"
-                          >
-                            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-tint text-brand">
-                              <Icon name={s.icon} className="h-4 w-4" />
-                            </span>
-                            <span className="text-sm font-medium text-ink">
-                              {s.shortName}
-                            </span>
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </li>
-                );
-              }
-              return (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-semibold text-ink transition-colors hover:bg-surface"
-                  >
-                    {item.label}
-                    <Icon name="arrow" className="h-4 w-4 text-ink-3" />
-                  </Link>
-                </li>
-              );
-            })}
+            {nav.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-semibold text-ink transition-colors hover:bg-surface"
+                >
+                  {item.label}
+                  <Icon name="arrow" className="h-4 w-4 text-ink-3" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <p className="mt-6 mb-2 px-4 text-xs font-semibold tracking-[0.14em] text-ink-3 uppercase">
+            Our Services
+          </p>
+          <ul className="grid gap-1 sm:grid-cols-2">
+            {services.map((s) => (
+              <li key={s.slug}>
+                <Link
+                  href={`/services/${s.slug}`}
+                  className="flex items-center gap-3 rounded-2xl px-4 py-3 text-ink-2 transition-colors hover:bg-surface"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-tint text-brand">
+                    <Icon name={s.icon} className="h-4 w-4" />
+                  </span>
+                  <span className="text-sm font-medium text-ink">
+                    {s.shortName}
+                  </span>
+                </Link>
+              </li>
+            ))}
           </ul>
 
           <div className="mt-8 grid gap-3 pb-10">
