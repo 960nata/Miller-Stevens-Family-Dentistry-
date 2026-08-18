@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import {
   Button,
-  Card,
   ClosingCta,
   DoctorCard,
   Icon,
@@ -410,7 +409,7 @@ export default function AboutPage() {
               <div className="absolute -top-12 -right-12 h-40 w-40 rounded-full bg-brand/5 blur-2xl transition-all duration-300 group-hover:bg-brand/10" />
               <div className="relative">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-tint text-brand transition-transform duration-300 group-hover:scale-110">
-                  <Icon name={icon as any} className="h-5 w-5" />
+                  <Icon name={icon as string} className="h-5 w-5" />
                 </div>
                 <h3 className="font-tight mt-4 text-lg font-bold text-ink">{title}</h3>
                 <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-ink-2">

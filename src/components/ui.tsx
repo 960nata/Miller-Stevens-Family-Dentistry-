@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import type { ComponentProps, ReactNode } from "react";
 import { site } from "@/lib/site";
@@ -361,9 +362,11 @@ export function Logo({ invert = false }: { invert?: boolean }) {
       aria-label={`${site.name} — home`}
     >
       <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl bg-white p-0.5 shadow-sm ring-1 ring-black/5 transition-transform duration-300 group-hover:scale-105">
-        <img
+        <Image
           src="/images/logo.avif"
           alt={`${site.name} logo`}
+          width={40}
+          height={40}
           className="h-full w-full object-contain"
         />
       </div>

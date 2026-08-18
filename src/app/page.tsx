@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Icon, Photo, Stars } from "@/components/blocks";
@@ -252,11 +251,10 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {journey.map((step, i) => (
+            {journey.map((step) => (
               <HoverCard
                 key={step.label}
                 className="group flex flex-col justify-between rounded-3xl border border-hairline bg-white p-6 shadow-sm transition-all duration-300 hover:border-brand/30 hover:shadow-[0_16px_40px_-16px_rgba(10,28,37,0.12)]"
-                style={{ transitionDelay: `${i * 50}ms` }}
               >
                 <div>
                   <div className="flex items-center justify-between">
@@ -603,7 +601,7 @@ export default function HomePage() {
           <ul className="mt-12 grid gap-5 md:grid-cols-3">
             {highlights.map((item, i) => (
               <li key={item.slug}>
-                <HoverCard style={{ transitionDelay: `${i * 50}ms` }}>
+                <HoverCard>
                     <Link
                       href={`/services/${item.slug}`}
                       className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] bg-white p-3 transition-all duration-300 hover:shadow-[0_28px_60px_-40px_rgba(10,28,37,0.45)]"
@@ -695,7 +693,7 @@ export default function HomePage() {
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {testimonials.slice(0, 4).map((t, i) => (
               <li key={t.author} className="h-full">
-                <HoverCard className="group flex h-full flex-col justify-between rounded-[1.5rem] border border-hairline/80 bg-white p-6 shadow-sm transition-all duration-300 hover:border-brand/40 hover:bg-gradient-to-b hover:from-white hover:to-surface/70 hover:shadow-xl hover:shadow-brand/10" style={{ transitionDelay: `${i * 50}ms` }}>
+                <HoverCard className="group flex h-full flex-col justify-between rounded-[1.5rem] border border-hairline/80 bg-white p-6 shadow-sm transition-all duration-300 hover:border-brand/40 hover:bg-gradient-to-b hover:from-white hover:to-surface/70 hover:shadow-xl hover:shadow-brand/10">
                 <div>
                   <div className="flex items-center justify-between">
                     <Icon
