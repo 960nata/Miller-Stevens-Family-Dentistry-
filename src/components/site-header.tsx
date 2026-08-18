@@ -118,7 +118,7 @@ export default function SiteHeader() {
 
                     {item.children ? (
                       <div className="invisible fixed inset-x-0 top-24 z-50 flex justify-center opacity-0 transition-all duration-200 before:absolute before:-top-8 before:right-0 before:left-0 before:h-8 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                        <div className="rounded-3xl border border-hairline bg-white/98 p-5 shadow-[0_24px_60px_-15px_rgba(10,28,37,0.25)] backdrop-blur-2xl" style={{ width: '1000px', maxWidth: '100vw' }}>
+                        <div className="rounded-3xl border border-hairline bg-white/98 p-5 shadow-[0_24px_60px_-15px_rgba(10,28,37,0.25)] backdrop-blur-2xl" style={{ width: '1000px' }}>
                           <div className="flex items-center justify-between px-1 pb-3">
                             <p className="text-xs font-semibold tracking-[0.14em] text-ink-3 uppercase">
                               Our Services
