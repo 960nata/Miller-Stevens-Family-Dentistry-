@@ -72,14 +72,28 @@ export default function NewPatientsPage() {
       <BreadcrumbSchema items={breadcrumbs} />
       <FaqSchema faqs={faqs} />
 
-      <PageHero
+      <style>{`
+        .services-hero nav[aria-label="Breadcrumb"] {
+          margin-top: 47px;
+        }
+      `}</style>
+      <div className="services-hero">
+        <PageHero
         eyebrow="New patients"
         title="Welcome to the practice"
         lead="Here is exactly what happens when you come to see us for the first time — including what it costs, which is nothing unless you find it valuable."
         breadcrumbs={breadcrumbs}
         image="/images/first-visit.avif"
         imageAlt="A patient's first examination visit"
-      />
+        stats={[
+          { value: "2 hrs", label: "Set aside for your first exam" },
+          { value: "2", label: "Visits before treatment starts" },
+          { value: "$0", label: "For the exam, unless you value it" },
+        ]}
+        actions={false}
+        height="430px"
+        />
+      </div>
 
       {/* Guarantee — elemen paling menonjol di seluruh website ----------- */}
       <Section>
@@ -90,82 +104,91 @@ export default function NewPatientsPage() {
       <Section tone="surface">
         <SectionHeading
           eyebrow="Your first two visits"
-          title="Two appointments before any treatment begins"
+          title="Two appointments"
+          muted="before any treatment begins."
           lead="We do not diagnose and drill on the same day. You get time to think, and we get time to plan properly."
         />
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-2">
-          <Card className="p-8" hover>
-            <div className="flex items-center justify-between">
-              <span className="pill-label inline-block">Visit one</span>
-              <span className="font-tight text-3xl font-semibold tracking-tight text-brand">
-                01
-              </span>
+        <div className="mt-14 grid gap-8 lg:grid-cols-2">
+          <div className="relative overflow-hidden rounded-[2rem] border border-hairline/80 bg-white p-8 md:p-10 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-xl hover:shadow-brand/5">
+            <div className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-brand/8 blur-3xl" />
+            <div className="relative">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand text-white font-tight text-xl font-bold">
+                  01
+                </span>
+                <span className="pill-label">Visit one</span>
+              </div>
+              <h3 className="font-tight text-2xl font-bold tracking-tight text-ink">
+                The examination
+              </h3>
+              <p className="mt-2 text-sm text-brand font-semibold">90 to 120 minutes</p>
+              <p className="mt-4 leading-relaxed text-ink-2 text-[0.9375rem]">
+                Longer than you are used to, and deliberately so. This is the appointment that determines everything that follows.
+              </p>
+              <ul className="mt-8 space-y-3">
+                {[
+                  "Full medical and dental history",
+                  "Complete examination of every tooth and all soft tissue",
+                  "Oral cancer screening",
+                  "Gum and bone health assessment",
+                  "Digital X-rays and intraoral photographs",
+                  "A conversation about what you actually want from your teeth",
+                ].map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-[0.875rem] text-ink-2"
+                  >
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand text-white">
+                      <Icon name="check" className="h-3 w-3" />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <h3 className="font-tight mt-5 text-2xl font-bold tracking-tight text-ink">
-              The examination — 90 to 120 minutes
-            </h3>
-            <p className="mt-4 leading-relaxed text-ink-2">
-              Longer than you are used to, and deliberately so. This is the
-              appointment that determines everything that follows.
-            </p>
-            <ul className="mt-7 space-y-3.5">
-              {[
-                "Full medical and dental history",
-                "Complete examination of every tooth and all soft tissue",
-                "Oral cancer screening",
-                "Gum and bone health assessment",
-                "Digital X-rays and intraoral photographs",
-                "A conversation about what you actually want from your teeth",
-              ].map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 text-[0.9375rem] text-ink-2"
-                >
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-tint text-brand">
-                    <Icon name="check" className="h-3 w-3" />
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </Card>
+          </div>
 
-          <Card className="p-8" hover>
-            <div className="flex items-center justify-between">
-              <span className="pill-label inline-block">Visit two</span>
-              <span className="font-tight text-3xl font-semibold tracking-tight text-brand">
-                02
-              </span>
+          <div className="relative overflow-hidden rounded-[2rem] border border-hairline/80 bg-white p-8 md:p-10 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-xl hover:shadow-brand/5">
+            <div className="absolute -top-20 -right-20 h-64 w-64 rounded-full bg-aqua/8 blur-3xl" />
+            <div className="relative">
+              <div className="flex items-center gap-3 mb-6">
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-aqua text-white font-tight text-xl font-bold">
+                  02
+                </span>
+                <span className="pill-label" style={{borderColor: '#00D4FF', backgroundColor: 'rgba(0, 212, 255, 0.1)'}}>
+                  <span style={{color: '#00D4FF'}}>Visit two</span>
+                </span>
+              </div>
+              <h3 className="font-tight text-2xl font-bold tracking-tight text-ink">
+                The findings
+              </h3>
+              <p className="mt-2 text-sm text-aqua font-semibold">Your plan, in plain English</p>
+              <p className="mt-4 leading-relaxed text-ink-2 text-[0.9375rem]">
+                You sit down with the dentist and go through what we found, using your own photographs on the screen.
+              </p>
+              <ul className="mt-8 space-y-3">
+                {[
+                  "What we found, shown on your own images",
+                  "What is urgent, what can wait, and what needs watching",
+                  "Every reasonable option — not just the expensive one",
+                  "Honest costs, with insurance benefits already verified",
+                  "A treatment sequence that fits your budget and schedule",
+                  "Time to think it over. No pressure at the desk.",
+                ].map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-[0.875rem] text-ink-2"
+                  >
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-aqua text-white">
+                      <Icon name="check" className="h-3 w-3" />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <h3 className="font-tight mt-5 text-2xl font-bold tracking-tight text-ink">
-              The findings — your plan, in plain English
-            </h3>
-            <p className="mt-4 leading-relaxed text-ink-2">
-              You sit down with the dentist and go through what we found, using
-              your own photographs on the screen.
-            </p>
-            <ul className="mt-7 space-y-3.5">
-              {[
-                "What we found, shown on your own images",
-                "What is urgent, what can wait, and what needs watching",
-                "Every reasonable option — not just the expensive one",
-                "Honest costs, with insurance benefits already verified",
-                "A treatment sequence that fits your budget and schedule",
-                "Time to think it over. No pressure at the desk.",
-              ].map((item) => (
-                <li
-                  key={item}
-                  className="flex items-start gap-3 text-[0.9375rem] text-ink-2"
-                >
-                  <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-brand-tint text-brand">
-                    <Icon name="check" className="h-3 w-3" />
-                  </span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </Card>
+          </div>
         </div>
       </Section>
 
@@ -175,7 +198,8 @@ export default function NewPatientsPage() {
           <div>
             <SectionHeading
               eyebrow="Patient forms"
-              title="Fill it in at home, not in the waiting room"
+              title="Fill it in at home,"
+              muted="not in the waiting room."
               lead="Registration and medical history take about ten minutes. Doing it beforehand means your appointment starts on time and every minute of it is spent on you."
             />
 
@@ -247,7 +271,8 @@ export default function NewPatientsPage() {
           <div>
             <SectionHeading
               eyebrow="Insurance & payment"
-              title="We will tell you the real number before we start"
+              title="We will tell you the real number"
+              muted="before we start."
             />
             <p className="mt-6 leading-relaxed text-ink-2">
               Dental insurance is confusing by design. Our front desk verifies
@@ -264,60 +289,108 @@ export default function NewPatientsPage() {
           </div>
 
           <ul className="grid gap-4 sm:grid-cols-2">
-            {site.insurance.map((item) => (
-              <li key={item}>
-                <Card className="h-full p-6">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand text-white">
-                    <Icon name="check" className="h-4 w-4" />
-                  </span>
-                  <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink">
-                    {item}
-                  </p>
-                </Card>
-              </li>
-            ))}
+            {site.insurance.map((item) => {
+              let icon = "check";
+              if (item.includes("Delta Dental") || item.includes("PPO")) {
+                icon = "shield";
+              } else if (item.includes("Visa") || item.includes("Mastercard") || item.includes("American Express")) {
+                icon = "credit-card";
+              } else if (item.includes("payment")) {
+                icon = "calendar";
+              } else if (item.includes("claims")) {
+                icon = "document";
+              }
+              return (
+                <li key={item}>
+                  <Card className="h-full p-6">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-brand text-white">
+                      <Icon name={icon} className="h-4 w-4" />
+                    </span>
+                    <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink">
+                      {item}
+                    </p>
+                  </Card>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </Section>
 
       {/* Emergency ------------------------------------------------------- */}
       <Section>
-        <div className="grid gap-10 rounded-[2rem] border border-line bg-white p-8 md:p-12 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-red-50 px-4 py-2 text-xs font-semibold tracking-[0.14em] text-red-700 uppercase">
-              <Icon name="alert" className="h-4 w-4" />
-              Dental emergency
-            </span>
-            <h2 className="mt-6 text-3xl font-semibold tracking-tight text-ink">
-              In pain right now? Call, do not wait it out.
-            </h2>
-            <p className="mt-5 leading-relaxed text-ink-2">
-              Emergency patients do not need to be established with the
-              practice. Ring the office and describe what happened — the front
-              desk will triage you, tell you what to do in the meantime, and get
-              you in as quickly as we can. A knocked-out tooth has the best
-              chance of being saved within the first hour.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button href={site.phoneHref}>
-                <Icon name="phone" className="h-4 w-4" filled />
-                Call {site.phone}
-              </Button>
-              <Button href="/services/emergency-dentistry" variant="outline">
-                Emergency care details
-                <Icon name="arrow" className="h-4 w-4" />
-              </Button>
+        <div className="relative isolate overflow-hidden rounded-[2rem] bg-ink p-3 text-white">
+          <div
+            aria-hidden
+            className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-brand/25 blur-3xl"
+          />
+          <div className="grid items-stretch gap-3 lg:grid-cols-[1.05fr_1fr]">
+            <div className="relative p-5 md:p-9">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-[0.6875rem] font-semibold tracking-[0.14em] text-white uppercase backdrop-blur-md">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-red-400" />
+                </span>
+                Dental emergency
+              </span>
+
+              <h2 className="font-tight mt-6 text-[1.75rem] leading-[1.12] font-normal md:text-[2.25rem]">
+                In pain right now?{" "}
+                <span className="text-white/45">
+                  Call, do not wait it out.
+                </span>
+              </h2>
+
+              <p className="mt-5 max-w-lg text-[0.9375rem] leading-relaxed text-white/70">
+                Emergency patients do not need to be established with the
+                practice. Ring the office and describe what happened — the front
+                desk will triage you, tell you what to do in the meantime, and
+                get you in as quickly as we can.
+              </p>
+
+              <p className="mt-5 flex items-start gap-3 rounded-2xl border border-white/15 bg-white/10 p-4 text-[0.8125rem] leading-relaxed text-white/85 backdrop-blur-md">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-aqua text-white">
+                  <Icon name="clock" className="h-3 w-3" />
+                </span>
+                A knocked-out permanent tooth has the best chance of being saved
+                within the first hour.
+              </p>
+
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <a
+                  href={site.phoneHref}
+                  className="group inline-flex items-center gap-3 rounded-full bg-white py-1.5 pr-1.5 pl-6 text-[0.9375rem] font-medium text-ink transition-all duration-300 hover:shadow-[0_16px_40px_-16px_rgba(255,255,255,0.5)]"
+                >
+                  Call {site.phone}
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-aqua text-white transition-transform duration-300 group-hover:translate-x-0.5">
+                    <Icon name="phone" className="h-4 w-4" filled />
+                  </span>
+                </a>
+                <Link
+                  href="/services/emergency-dentistry"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-[0.875rem] font-medium text-white/90 transition-colors hover:border-white/45 hover:bg-white/10"
+                >
+                  Emergency care details
+                  <Icon name="arrow" className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+
+            <div className="relative overflow-hidden rounded-[1.5rem]">
+              <Photo
+                src="/images/svc-emergency.avif"
+                alt="Emergency dental treatment"
+                className="h-full min-h-[16rem] w-full"
+                width={900}
+                height={700}
+                sizes="(max-width: 1024px) 100vw, 40vw"
+              />
+              <span className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-white/90 px-3.5 py-1.5 text-[0.75rem] font-semibold text-ink backdrop-blur-md">
+                <Icon name="phone" className="h-3.5 w-3.5 text-aqua" filled />
+                Seen the same week, usually sooner
+              </span>
             </div>
           </div>
-
-          <Photo
-            src="/images/svc-emergency.avif"
-            alt="Emergency dental treatment"
-            className="aspect-[4/3] w-full rounded-2xl"
-            width={900}
-            height={700}
-            sizes="(max-width: 1024px) 100vw, 40vw"
-          />
         </div>
       </Section>
 

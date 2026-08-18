@@ -43,9 +43,9 @@ export default function SiteHeader() {
     };
   }, [open]);
 
-  // Di homepage nav melayang di atas kartu hero gelap (teks putih). Setelah
-  // hero terlewati, nav berubah jadi bar putih yang menempel di atas.
-  const overlay = isHome && !pastHero;
+  // Di homepage & halaman lain nav melayang di atas kartu hero gelap (teks putih).
+  // Setelah hero terlewati, nav berubah jadi bar putih yang menempel di atas.
+  const overlay = !pastHero;
 
   return (
     <>
@@ -64,18 +64,10 @@ export default function SiteHeader() {
               }`
             : isHome
               ? "fixed inset-x-0 top-0 z-50 border-b border-hairline/80 bg-white/95 shadow-sm backdrop-blur-xl animate-slide-down"
-              : `sticky z-50 transition-all duration-300 ${
-                  scrolled
-                    ? "top-0 border-b border-hairline/80 bg-white/95 shadow-sm backdrop-blur-xl"
-                    : "top-[10px] border-b border-hairline/50 bg-white/90 backdrop-blur-md"
-                }`
+              : "fixed inset-x-0 top-0 z-50 border-b border-hairline/80 bg-white/95 shadow-sm backdrop-blur-xl animate-slide-down"
         }
       >
-        <div
-          className={`flex h-20 items-center justify-between gap-6 ${
-            isHome ? "container-wide" : "container-page"
-          }`}
-        >
+        <div className="container-wide flex h-20 items-center justify-between gap-6">
           <Logo invert={overlay} />
 
           <nav aria-label="Main" className="hidden lg:block">
@@ -126,7 +118,7 @@ export default function SiteHeader() {
 
                     {item.children ? (
                       <div className="invisible fixed inset-x-0 top-24 z-50 flex justify-center opacity-0 transition-all duration-200 before:absolute before:-top-8 before:right-0 before:left-0 before:h-8 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100">
-                        <div className="w-full max-w-3xl rounded-3xl border border-hairline bg-white/98 p-5 shadow-[0_24px_60px_-15px_rgba(10,28,37,0.25)] backdrop-blur-2xl">
+                        <div className="flex-shrink-0 rounded-3xl border border-hairline bg-white/98 p-5 shadow-[0_24px_60px_-15px_rgba(10,28,37,0.25)] backdrop-blur-2xl" style={{ width: '1000px', maxWidth: '95vw' }}>
                           <div className="flex items-center justify-between px-1 pb-3">
                             <p className="text-xs font-semibold tracking-[0.14em] text-ink-3 uppercase">
                               Our Services
@@ -222,6 +214,15 @@ export default function SiteHeader() {
           </div>
         </div>
       </header>
+
+      {/* Mobile menu backdrop */}
+      {open && (
+        <div
+          className="fixed inset-0 z-35 bg-black/20 lg:hidden"
+          onClick={() => setOpen(false)}
+          aria-hidden="true"
+        />
+      )}
 
       {/* Mobile drawer */}
       <div

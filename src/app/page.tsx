@@ -1,9 +1,12 @@
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { Icon, Photo, Stars } from "@/components/blocks";
+import { HoverCard } from "@/components/hover-card";
 import { formatHours, doctors, site, testimonials } from "@/lib/site";
 import { featuredServices, services } from "@/lib/services";
+import { HeroImage } from "@/components/hero-image";
 
 export const metadata: Metadata = {
   title: `Dentist in South Oklahoma City | ${site.tagline}`,
@@ -99,17 +102,9 @@ export default function HomePage() {
   return (
     <>
       {/* 1 — HERO -------------------------------------------------------- */}
-      <section className="px-3 pt-3 md:px-4 md:pt-4">
+      <section className="p-[7px] md:p-[5px]">
         <div className="relative isolate flex h-[800px] flex-col overflow-hidden rounded-[1.75rem] bg-ink text-white md:rounded-[2rem]">
-          <Image
-            src="/images/hero-1.avif"
-            alt="A treatment in progress at our South Oklahoma City practice"
-            fill
-            priority
-            sizes="100vw"
-            unoptimized
-            className="-z-10 object-cover object-center"
-          />
+          <HeroImage />
           <div
             aria-hidden
             className="absolute inset-y-0 left-0 w-full lg:w-2/3 -z-10 bg-gradient-to-r from-ink/90 via-ink/50 to-transparent"
@@ -125,21 +120,21 @@ export default function HomePage() {
 
           <div className="container-wide flex flex-1 flex-col justify-end pt-[7.5rem] pb-6 md:pt-[10rem] md:pb-8">
             <div className="grid flex-1 items-end gap-12 lg:grid-cols-[minmax(0,32rem)_1fr]">
-              <div className="animate-rise">
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 py-1.5 pr-4 pl-1.5 text-[0.75rem] text-white/80 backdrop-blur-md">
+              <div>
+                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 py-1.5 pr-4 pl-1.5 text-[0.75rem] text-white/80 backdrop-blur-md animate-fade-up" style={{ animationDelay: "0ms" }}>
                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-aqua text-white">
                     <Icon name="tooth" className="h-3.5 w-3.5" filled />
                   </span>
                   Accepting new patients in South OKC
                 </span>
 
-                <h1 className="font-tight mt-6 text-[2.5rem] leading-[1.03] font-normal sm:text-[3.5rem] lg:text-[4.25rem]">
+                <h1 className="font-tight mt-6 text-[2.5rem] leading-[1.03] font-normal sm:text-[3.5rem] lg:text-[4.25rem] animate-fade-up" style={{ animationDelay: "80ms" }}>
                   Family-Friendly
                   <br />
                   Dental Care
                 </h1>
 
-                <p className="mt-6 max-w-[24rem] text-[0.875rem] leading-relaxed text-white/65">
+                <p className="mt-6 max-w-[24rem] text-[0.875rem] leading-relaxed text-white/65 animate-fade-up" style={{ animationDelay: "160ms" }}>
                   Permanent, natural-looking solutions to replace missing teeth
                   and restore confident, healthy smiles — in the same South OKC
                   practice since {site.established}.
@@ -148,7 +143,7 @@ export default function HomePage() {
                 <div className="mt-8 flex flex-wrap items-center gap-3">
                   <Link
                     href="/contact"
-                    className="group inline-flex items-center gap-3 rounded-full bg-white py-1.5 pr-1.5 pl-6 text-[0.9375rem] font-medium text-ink transition-all duration-300 hover:shadow-[0_16px_40px_-16px_rgba(255,255,255,0.5)]"
+                    className="group inline-flex items-center gap-3 rounded-full bg-white py-1.5 pr-1.5 pl-6 text-[0.9375rem] font-medium text-ink transition-all duration-300 hover:shadow-[0_16px_40px_-16px_rgba(255,255,255,0.5)] animate-fade-up" style={{ animationDelay: "240ms" }}
                   >
                     Book an Appointment
                     <span className="flex h-9 w-9 items-center justify-center rounded-full bg-aqua text-white transition-transform duration-300 group-hover:translate-x-0.5">
@@ -157,7 +152,7 @@ export default function HomePage() {
                   </Link>
                   <a
                     href={site.phoneHref}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-[0.875rem] font-medium text-white/90 transition-colors hover:border-white/45 hover:bg-white/10"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-[0.875rem] font-medium text-white/90 transition-colors hover:border-white/45 hover:bg-white/10 animate-fade-up" style={{ animationDelay: "320ms" }}
                   >
                     <Icon name="phone" className="h-4 w-4" filled />
                     {site.phone}
@@ -165,7 +160,7 @@ export default function HomePage() {
                 </div>
 
                 {/* Kartu bukti kaca */}
-                <div className="mt-10 hidden max-w-[19.5rem] items-center gap-3.5 rounded-2xl border border-white/15 bg-white/10 p-3 backdrop-blur-md transition-colors hover:bg-white/15 sm:flex">
+                <div className="mt-10 hidden max-w-[19.5rem] items-center gap-3.5 rounded-2xl border border-white/15 bg-white/10 p-3 backdrop-blur-md transition-colors hover:bg-white/15 sm:flex animate-fade-up" style={{ animationDelay: "400ms" }}>
                   <Photo
                     src="/images/svc-family.avif"
                     alt=""
@@ -190,7 +185,7 @@ export default function HomePage() {
               </div>
 
               {/* Chip layanan */}
-              <div className="animate-rise flex flex-col gap-2.5 [animation-delay:150ms] lg:items-end lg:pb-2">
+              <div className="flex flex-col gap-2.5 animate-fade-up lg:items-end lg:pb-2" style={{ animationDelay: "240ms" }}>
                 <p className="hidden text-[0.6875rem] tracking-[0.16em] text-white/45 uppercase sm:block lg:text-right">
                   What we treat
                 </p>
@@ -257,10 +252,11 @@ export default function HomePage() {
           </div>
 
           <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {journey.map((step) => (
-              <div
+            {journey.map((step, i) => (
+              <HoverCard
                 key={step.label}
-                className="group flex flex-col justify-between rounded-3xl border border-hairline bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand/30 hover:shadow-[0_16px_40px_-16px_rgba(10,28,37,0.12)]"
+                className="group flex flex-col justify-between rounded-3xl border border-hairline bg-white p-6 shadow-sm transition-all duration-300 hover:border-brand/30 hover:shadow-[0_16px_40px_-16px_rgba(10,28,37,0.12)]"
+                style={{ transitionDelay: `${i * 50}ms` }}
               >
                 <div>
                   <div className="flex items-center justify-between">
@@ -289,7 +285,7 @@ export default function HomePage() {
                     <Icon name="arrow" className="h-3 w-3" />
                   </span>
                 </div>
-              </div>
+              </HoverCard>
             ))}
           </div>
         </div>
@@ -605,12 +601,13 @@ export default function HomePage() {
           </div>
 
           <ul className="mt-12 grid gap-5 md:grid-cols-3">
-            {highlights.map((item) => (
+            {highlights.map((item, i) => (
               <li key={item.slug}>
-                <Link
-                  href={`/services/${item.slug}`}
-                  className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] bg-white p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_60px_-40px_rgba(10,28,37,0.45)]"
-                >
+                <HoverCard style={{ transitionDelay: `${i * 50}ms` }}>
+                    <Link
+                      href={`/services/${item.slug}`}
+                      className="group flex h-full flex-col overflow-hidden rounded-[1.5rem] bg-white p-3 transition-all duration-300 hover:shadow-[0_28px_60px_-40px_rgba(10,28,37,0.45)]"
+                    >
                   <div className="relative">
                     <Photo
                       src={item.image}
@@ -642,6 +639,7 @@ export default function HomePage() {
                     </span>
                   </div>
                 </Link>
+              </HoverCard>
               </li>
             ))}
           </ul>
@@ -695,11 +693,9 @@ export default function HomePage() {
 
           {/* 4 Kartu Di Bawah (Grid 1x4 Horizontal) */}
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {testimonials.slice(0, 4).map((t) => (
-              <li
-                key={t.author}
-                className="group flex flex-col justify-between rounded-[1.5rem] border border-hairline/80 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-brand/40 hover:bg-gradient-to-b hover:from-white hover:to-surface/70 hover:shadow-xl hover:shadow-brand/10"
-              >
+            {testimonials.slice(0, 4).map((t, i) => (
+              <li key={t.author} className="h-full">
+                <HoverCard className="group flex h-full flex-col justify-between rounded-[1.5rem] border border-hairline/80 bg-white p-6 shadow-sm transition-all duration-300 hover:border-brand/40 hover:bg-gradient-to-b hover:from-white hover:to-surface/70 hover:shadow-xl hover:shadow-brand/10" style={{ transitionDelay: `${i * 50}ms` }}>
                 <div>
                   <div className="flex items-center justify-between">
                     <Icon
@@ -727,6 +723,7 @@ export default function HomePage() {
                     </span>
                   </span>
                 </div>
+              </HoverCard>
               </li>
             ))}
           </ul>

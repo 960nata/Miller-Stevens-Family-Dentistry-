@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { site } from "@/lib/site";
 import { services } from "@/lib/services";
 import { Icon } from "@/components/ui";
@@ -18,35 +21,40 @@ const legalLinks = [
 ] as const;
 
 export default function SiteFooter() {
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
   return (
     <footer className="bg-shell">
-      {/* Buletin */}
-      <div className="container-wide pt-16 md:pt-20">
-        <div className="relative isolate flex flex-col items-center gap-7 overflow-hidden rounded-[1.75rem] bg-white px-6 py-12 text-center md:px-12 md:py-14">
-          <div
-            aria-hidden
-            className="absolute -top-24 left-1/2 -z-10 h-56 w-[28rem] -translate-x-1/2 rounded-full bg-aqua/12 blur-3xl"
-          />
-          <span className="pill-label">
-            <span className="flex h-4 w-4 items-center justify-center rounded-full bg-aqua/15 text-aqua">
-              <Icon name="sparkle" className="h-2.5 w-2.5" filled />
+      {/* Newsletter - hanya di homepage */}
+      {isHome ? (
+        <div className="container-wide pt-16 md:pt-20">
+          <div className="relative isolate flex flex-col items-center gap-7 overflow-hidden rounded-[1.75rem] bg-white px-6 py-12 text-center md:px-12 md:py-14">
+            <div
+              aria-hidden
+              className="absolute -top-24 left-1/2 -z-10 h-56 w-[28rem] -translate-x-1/2 rounded-full bg-aqua/12 blur-3xl"
+            />
+            <span className="pill-label">
+              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-aqua/15 text-aqua">
+                <Icon name="sparkle" className="h-2.5 w-2.5" filled />
+              </span>
+              Newsletter
             </span>
-            Newsletter
-          </span>
-          <p className="font-tight max-w-xl text-[1.375rem] leading-snug font-normal text-ink md:text-[1.75rem]">
-            Join our newsletter to receive the latest oral health tips, special
-            offers and clinic updates.
-          </p>
-          <NewsletterForm />
-          <p className="text-[0.6875rem] text-ink-3">
-            One short email a month. No treatment details, ever — unsubscribe in
-            a click.
-          </p>
+            <p className="font-tight max-w-xl text-[1.375rem] leading-snug font-normal text-ink md:text-[1.75rem]">
+              Join our newsletter to receive the latest oral health tips, special
+              offers and clinic updates.
+            </p>
+            <NewsletterForm />
+            <p className="text-[0.6875rem] text-ink-3">
+              One short email a month. No treatment details, ever — unsubscribe in
+              a click.
+            </p>
+          </div>
         </div>
-      </div>
+      ) : null}
 
       {/* Sapaan + sosial */}
-      <div className="container-wide pt-16 md:pt-20">
+      <div className={`container-wide ${isHome ? "pt-16 md:pt-20" : "pt-20 md:pt-28"}`}>
         <div className="flex flex-wrap items-end justify-between gap-10">
           <div>
             <p className="text-[0.6875rem] tracking-[0.18em] text-ink-3 uppercase">

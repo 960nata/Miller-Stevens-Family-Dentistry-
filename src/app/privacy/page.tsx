@@ -48,24 +48,41 @@ export default function PrivacyPage() {
 
   return (
     <>
-      <PageHero
-        eyebrow="Legal"
-        title="Privacy policy"
-        lead="What happens to the information you send us through this website."
-        breadcrumbs={[
-          { name: "Home", href: "/" },
-          { name: "Privacy", href: "/privacy" },
-        ]}
-      />
+      <style>{`
+        .services-hero nav[aria-label="Breadcrumb"] {
+          margin-top: 47px;
+        }
+      `}</style>
+      <div className="services-hero">
+        <PageHero
+          eyebrow="Legal"
+          title="Privacy policy"
+          lead="What happens to the information you send us through this website."
+          breadcrumbs={[
+            { name: "Home", href: "/" },
+            { name: "Privacy", href: "/privacy" },
+          ]}
+          actions={false}
+          height="430px"
+        />
+      </div>
 
       <Section>
-        <div className="max-w-3xl space-y-10">
-          {sections.map((s) => (
-            <section key={s.title}>
-              <h2 className="text-2xl font-semibold tracking-tight text-ink">
-                {s.title}
-              </h2>
-              <p className="mt-4 text-[1.0625rem] leading-[1.8] text-ink-2">
+        <div className="max-w-3xl space-y-8">
+          {sections.map((s, i) => (
+            <section
+              key={s.title}
+              className="rounded-[1.5rem] border border-hairline/80 bg-white p-6 shadow-sm transition-colors duration-300 hover:border-brand/25 md:p-8"
+            >
+              <div className="flex items-baseline gap-4">
+                <span className="font-tight text-[0.8125rem] font-semibold text-aqua">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h2 className="font-tight text-[1.375rem] font-semibold tracking-tight text-ink">
+                  {s.title}
+                </h2>
+              </div>
+              <p className="mt-4 text-[1rem] leading-[1.8] text-ink-2">
                 {s.body}
               </p>
             </section>

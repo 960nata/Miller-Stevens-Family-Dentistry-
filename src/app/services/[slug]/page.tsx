@@ -10,6 +10,7 @@ import {
   Section,
   SectionHeading,
   ServiceCard,
+  Stars,
 } from "@/components/blocks";
 import { Faq } from "@/components/interactive";
 import { BreadcrumbSchema, FaqSchema } from "@/components/schema";
@@ -56,15 +57,29 @@ export default async function ServicePage({ params }: Params) {
       <BreadcrumbSchema items={breadcrumbs} />
       <FaqSchema faqs={service.faqs} />
 
-      {/* 1 — HERO ------------------------------------------------------- */}
-      <PageHero
-        eyebrow={service.seoPriority ? "Specialist care" : "Our services"}
-        title={service.name}
-        lead={service.tagline}
-        breadcrumbs={breadcrumbs}
-        image={service.image}
-        imageAlt={service.name}
-      />
+      <style>{`
+        .services-hero nav[aria-label="Breadcrumb"] {
+          margin-top: 47px;
+        }
+      `}</style>
+      <div className="services-hero">
+        {/* 1 — HERO ------------------------------------------------------- */}
+        <PageHero
+          eyebrow={service.seoPriority ? "Specialist care" : "Our services"}
+          title={service.name}
+          lead={service.tagline}
+          breadcrumbs={breadcrumbs}
+          image={service.image}
+          imageAlt={service.name}
+          stats={[
+            { value: `${service.process.length}`, label: "Steps, start to finish" },
+            { value: service.duration.visits, label: "Course of care" },
+            { value: service.duration.time, label: "Time per appointment" },
+          ]}
+          actions={false}
+          height="430px"
+        />
+      </div>
 
       {/* 2 — WHAT IT IS & WHO FOR --------------------------------------- */}
       <Section>
@@ -72,7 +87,8 @@ export default async function ServicePage({ params }: Params) {
           <div>
             <SectionHeading
               eyebrow="What it is"
-              title={`Understanding ${service.shortName.toLowerCase()}`}
+              title="Understanding"
+              muted={service.shortName.toLowerCase()}
             />
             <p className="mt-7 text-[1.0625rem] leading-[1.8] text-ink-2">
               {service.intro}
@@ -141,18 +157,25 @@ export default async function ServicePage({ params }: Params) {
 
       {/* 3 — BENEFITS --------------------------------------------------- */}
       <Section tone="surface">
-        <SectionHeading eyebrow="Benefits" title="What it does for you" />
-        <ul className="mt-12 grid gap-5 md:grid-cols-2">
+        <SectionHeading
+          eyebrow="Benefits"
+          title="What it does"
+          muted="for you."
+        />
+        <ul className="mt-12 grid gap-6 md:grid-cols-2">
           {service.benefits.map((b) => (
             <li key={b}>
-              <Card className="flex h-full items-start gap-4 p-6" hover>
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-brand text-white">
-                  <Icon name="check" className="h-5 w-5" />
-                </span>
-                <p className="pt-1.5 text-[1.0625rem] leading-relaxed text-ink">
-                  {b}
-                </p>
-              </Card>
+              <div className="group relative overflow-hidden rounded-[1.75rem] border border-hairline/80 bg-white p-6 md:p-7 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-xl hover:shadow-brand/10 h-full">
+                <div className="absolute -top-12 -right-12 h-48 w-48 rounded-full bg-brand/8 blur-2xl transition-all duration-300 group-hover:bg-brand/12" />
+                <div className="relative flex items-start gap-4">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand text-white shadow-lg shadow-brand/20 transition-transform duration-300 group-hover:scale-110">
+                    <Icon name="check" className="h-5 w-5" />
+                  </span>
+                  <p className="pt-1 text-[1.0625rem] leading-relaxed text-ink">
+                    {b}
+                  </p>
+                </div>
+              </div>
             </li>
           ))}
         </ul>
@@ -160,31 +183,49 @@ export default async function ServicePage({ params }: Params) {
 
       {/* 4 — PROCESS ---------------------------------------------------- */}
       <Section>
-        <SectionHeading
-          eyebrow="The process"
-          title="Step by step, so nothing is a surprise"
-          lead="Most dental anxiety comes from not knowing what happens next. Here is the whole sequence."
-        />
+        <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+          <SectionHeading
+            eyebrow="The process"
+            title="Step by step,"
+            muted="so nothing is a surprise."
+            className="max-w-xl"
+          />
+          <p className="max-w-md text-[0.9375rem] leading-relaxed text-ink-2">
+            Most dental anxiety comes from not knowing what happens next. Here
+            is the whole sequence, from the first phone call onwards.
+          </p>
+        </div>
 
-        <ol className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <ol className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {service.process.map((step, i) => (
-            <li key={step.title} className="relative">
+            <li key={step.title} className="group relative flex">
               {i < service.process.length - 1 ? (
                 <span
                   aria-hidden
-                  className="absolute top-6 left-12 hidden h-px w-full bg-line lg:block"
+                  className="absolute top-14 -right-6 hidden h-px w-6 bg-hairline lg:block"
                 />
               ) : null}
-              <div className="relative">
-                <span className="flex h-12 w-12 items-center justify-center rounded-full border border-line bg-white text-lg font-semibold text-brand">
-                  {i + 1}
-                </span>
-                <h3 className="mt-5 text-[1.0625rem] leading-snug font-semibold text-ink">
-                  {step.title}
-                </h3>
-                <p className="mt-2.5 text-[0.9375rem] leading-relaxed text-ink-2">
-                  {step.body}
-                </p>
+              <div className="flex flex-1 flex-col overflow-hidden rounded-[1.75rem] border border-hairline/80 bg-white p-6 md:p-7 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:border-brand/30 hover:shadow-xl hover:shadow-brand/10">
+                <div className="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-brand/8 blur-3xl transition-all duration-300 group-hover:bg-brand/12" />
+                <div className="relative">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand text-white font-tight text-lg font-bold shadow-lg shadow-brand/20">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-tint text-brand transition-all duration-300 group-hover:scale-110 group-hover:bg-brand group-hover:text-white">
+                      <Icon
+                        name={i === 0 ? "phone" : i === 1 ? "clock" : i === 2 ? "check" : "sparkle"}
+                        className="h-5 w-5"
+                      />
+                    </span>
+                  </div>
+                  <h3 className="font-tight text-[1.0625rem] leading-snug font-semibold text-ink">
+                    {step.title}
+                  </h3>
+                  <p className="mt-3 text-[0.875rem] leading-relaxed text-ink-2">
+                    {step.body}
+                  </p>
+                </div>
               </div>
             </li>
           ))}
@@ -193,17 +234,35 @@ export default async function ServicePage({ params }: Params) {
 
       {/* 5 — TESTIMONIAL ------------------------------------------------ */}
       <Section tone="tint">
-        <figure className="mx-auto max-w-3xl text-center">
-          <Icon
-            name="quote"
-            className="mx-auto h-9 w-9 text-brand/25"
-            filled
+        <figure className="relative isolate overflow-hidden rounded-[2rem] bg-ink px-6 py-12 text-center text-white md:px-16 md:py-16">
+          <div
+            aria-hidden
+            className="absolute -top-24 -right-20 -z-10 h-72 w-72 rounded-full bg-aqua/20 blur-3xl"
           />
-          <blockquote className="mt-7 text-2xl leading-[1.5] font-medium tracking-tight text-ink md:text-[2rem]">
+          <div
+            aria-hidden
+            className="absolute -bottom-28 -left-20 -z-10 h-72 w-72 rounded-full bg-brand/25 blur-3xl"
+          />
+
+          <Icon name="quote" className="mx-auto h-8 w-8 text-aqua" filled />
+          <blockquote className="font-tight mx-auto mt-7 max-w-3xl text-[1.375rem] leading-[1.4] font-normal md:text-[2rem]">
             &ldquo;{service.testimonial.quote}&rdquo;
           </blockquote>
-          <figcaption className="mt-7 text-[0.9375rem] font-medium text-ink-2">
-            — {service.testimonial.author}
+          <figcaption className="mt-8 flex flex-wrap items-center justify-center gap-3 text-[0.875rem] text-white/70">
+            <span className="font-tight flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-[0.875rem] font-semibold text-white ring-1 ring-white/20">
+              {service.testimonial.author.charAt(0)}
+            </span>
+            <span className="font-medium text-white">
+              {service.testimonial.author}
+            </span>
+            <span aria-hidden className="text-white/25">
+              /
+            </span>
+            <Stars size={13} className="text-aqua" />
+            <span>
+              {site.reviews.rating.toFixed(1)} from{" "}
+              {site.reviews.count.toLocaleString()} reviews
+            </span>
           </figcaption>
         </figure>
       </Section>
@@ -234,7 +293,11 @@ export default async function ServicePage({ params }: Params) {
 
       {/* 7 — RELATED ---------------------------------------------------- */}
       <Section tone="surface">
-        <SectionHeading eyebrow="Related care" title="You might also need" />
+        <SectionHeading
+          eyebrow="Related care"
+          title="You might"
+          muted="also need."
+        />
         <ul className="mt-12 grid gap-6 md:grid-cols-3">
           {related.map((s) => (
             <li key={s.slug}>

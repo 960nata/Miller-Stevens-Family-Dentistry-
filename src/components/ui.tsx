@@ -86,7 +86,7 @@ export function Section({
   };
   return (
     <section id={id} className={cx("py-16 md:py-24", tones[tone], className)}>
-      <div className="container-page">{children}</div>
+      <div className="container-wide">{children}</div>
     </section>
   );
 }
@@ -94,6 +94,7 @@ export function Section({
 export function SectionHeading({
   eyebrow,
   title,
+  muted,
   lead,
   align = "left",
   invert = false,
@@ -101,6 +102,8 @@ export function SectionHeading({
 }: {
   eyebrow?: string;
   title: ReactNode;
+  /** Ekor judul dua nada — abu-abu, seperti judul section di homepage. */
+  muted?: ReactNode;
   lead?: ReactNode;
   align?: "left" | "center";
   invert?: boolean;
@@ -115,7 +118,13 @@ export function SectionHeading({
       )}
     >
       {eyebrow ? (
-        <span className="pill-label mb-2 inline-block">{eyebrow}</span>
+        <span className="pill-label mb-2 inline-flex">
+          <span
+            aria-hidden
+            className="h-1.5 w-1.5 rounded-full bg-aqua"
+          />
+          {eyebrow}
+        </span>
       ) : null}
       <h2
         className={cx(
@@ -124,6 +133,14 @@ export function SectionHeading({
         )}
       >
         {title}
+        {muted ? (
+          <>
+            {" "}
+            <span className={invert ? "text-white/45" : "text-mute"}>
+              {muted}
+            </span>
+          </>
+        ) : null}
       </h2>
       {lead ? (
         <p

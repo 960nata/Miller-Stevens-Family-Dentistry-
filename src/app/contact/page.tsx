@@ -8,11 +8,36 @@ import {
 } from "@/components/blocks";
 import AppointmentForm from "@/components/appointment-form";
 import { BreadcrumbSchema } from "@/components/schema";
-import { formatHours, site } from "@/lib/site";
+import { site } from "@/lib/site";
+
+function SocialGlyph({ name }: { name: "facebook" | "instagram" | "google" }) {
+  if (name === "facebook") {
+    return (
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+        <path d="M13.5 21v-8h2.7l.4-3h-3.1V8.1c0-.9.2-1.5 1.5-1.5h1.7V4c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1V10H7.5v3h2.8v8h3.2z" />
+      </svg>
+    );
+  }
+  if (name === "instagram") {
+    return (
+      <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+        <path d="M12 7.4a4.6 4.6 0 1 0 0 9.2 4.6 4.6 0 0 0 0-9.2zm0 7.6a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm5.9-7.8a1.07 1.07 0 1 1-2.15 0 1.07 1.07 0 0 1 2.15 0zM21 8.9c0-1.5-.4-2.8-1.5-3.9C18.4 3.9 17.1 3.5 15.6 3.5c-1.5-.1-6.2-.1-7.7 0-1.5 0-2.8.4-3.9 1.5S2.5 7.4 2.5 8.9c-.1 1.5-.1 6.2 0 7.7 0 1.5.4 2.8 1.5 3.9s2.4 1.5 3.9 1.5c1.5.1 6.2.1 7.7 0 1.5 0 2.8-.4 3.9-1.5s1.5-2.4 1.5-3.9c.1-1.5.1-6.2 0-7.7zm-1.9 9.3c-.3.8-1 1.5-1.8 1.8-1.3.5-4.3.4-5.7.4s-4.4.1-5.7-.4c-.8-.3-1.5-1-1.8-1.8-.5-1.3-.4-4.3-.4-5.7s-.1-4.4.4-5.7c.3-.8 1-1.5 1.8-1.8C7.6 4.5 10.6 4.6 12 4.6s4.4-.1 5.7.4c.8.3 1.5 1 1.8 1.8.5 1.3.4 4.3.4 5.7s.1 4.4-.4 5.7z" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
+      <path d="M21.6 12.2c0-.7-.1-1.3-.2-1.9H12v3.7h5.4a4.6 4.6 0 0 1-2 3v2.5h3.2c1.9-1.7 3-4.3 3-7.3z" />
+      <path d="M12 22c2.7 0 5-.9 6.6-2.5l-3.2-2.5c-.9.6-2 1-3.4 1-2.6 0-4.8-1.7-5.6-4.1H3.1v2.6A10 10 0 0 0 12 22z" />
+      <path d="M6.4 13.9a6 6 0 0 1 0-3.8V7.5H3.1a10 10 0 0 0 0 9l3.3-2.6z" />
+      <path d="M12 5.9c1.5 0 2.8.5 3.8 1.5l2.8-2.8A10 10 0 0 0 3.1 7.5l3.3 2.6C7.2 7.7 9.4 5.9 12 5.9z" />
+    </svg>
+  );
+}
 
 export const metadata: Metadata = {
   title: "Contact & Directions",
-  description: `Call ${site.phone} or request an appointment online. Half a mile south of I-240 on Walker Avenue in South Oklahoma City. Free parking, wheelchair accessible.`,
+  description: `Call ${site.phone} or request an appointment online. ${site.address.street}, ${site.address.city}, ${site.address.state} ${site.address.zip}. Free parking, wheelchair accessible.`,
   alternates: { canonical: "/contact" },
 };
 
@@ -22,7 +47,6 @@ const breadcrumbs = [
 ];
 
 export default function ContactPage() {
-  const hours = formatHours();
   const mapQuery = encodeURIComponent(
     `${site.address.street}, ${site.address.city}, ${site.address.state} ${site.address.zip}`,
   );
@@ -31,171 +55,180 @@ export default function ContactPage() {
     <>
       <BreadcrumbSchema items={breadcrumbs} />
 
-      <PageHero
-        eyebrow="Contact Us"
-        title="Book a Call & Schedule Your Visit"
-        lead="Reach out directly by phone for immediate triage, or send us a message below to request a convenient callback."
-        breadcrumbs={breadcrumbs}
-        image="/images/hero-clinic.avif"
-        imageAlt="Our reception area on Walker Avenue"
-      />
+      <style>{`
+        .services-hero nav[aria-label="Breadcrumb"] {
+          margin-top: 47px;
+        }
+      `}</style>
+      <div className="services-hero">
+        <PageHero
+          eyebrow="Contact"
+          title="Get in Touch"
+          lead="Call us or request an appointment online. We're here to help with any questions you may have."
+          breadcrumbs={breadcrumbs}
+          image="/images/feature-treatment.avif"
+          imageAlt="Contact our dental office"
+          stats={[
+            { value: site.phone, label: "Call us" },
+            { value: `${site.address.city}, ${site.address.state}`, label: "Our location" },
+          ]}
+          actions={false}
+          height="430px"
+        />
+      </div>
 
-      {/* Quick contact --------------------------------------------------- */}
+      {/* Contact section with form and info */}
       <Section>
-        <div className="grid gap-6 md:grid-cols-3">
-          <div className="group flex flex-col justify-between rounded-[1.75rem] border border-hairline/80 bg-white p-7.5 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-xl hover:shadow-brand/5">
-            <div>
-              <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-ink text-white shadow-md shadow-ink/20 transition-transform duration-300 group-hover:scale-105">
-                <Icon name="phone" className="h-5.5 w-5.5" filled />
-              </div>
-              <h2 className="font-tight mt-6 text-xl font-bold text-ink">Call us directly</h2>
-              <a
-                href={site.phoneHref}
-                className="mt-2 block text-2xl font-bold tracking-tight text-brand transition-colors hover:text-brand-dark"
-              >
-                {site.phone}
-              </a>
-              <p className="mt-3 text-[0.9375rem] leading-relaxed text-ink-2">
-                Fastest way to reach our desk, and the only way for immediate emergency triage.
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+          {/* Left: Contact Info - Left-Aligned */}
+          <div className="flex flex-col justify-center">
+            <div className="mb-12 max-w-md">
+              <h1 className="font-tight text-[2rem] leading-[1.08] font-normal sm:text-[2.5rem] text-ink mb-4">
+                We are always ready to help you and answer your questions
+              </h1>
+              <p className="text-[0.9375rem] leading-relaxed text-ink-2">
+                Get in touch with us today. Our team is here to help with any questions or concerns you may have.
               </p>
             </div>
-            <div className="mt-6 flex items-center gap-2 text-xs font-semibold text-aqua">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-aqua opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-aqua" />
-              </span>
-              Line Open Mon–Thu
+
+            <div className="space-y-8 w-full max-w-md">
+              {/* Call Center */}
+              <div>
+                <span className="inline-block text-[0.6875rem] font-semibold text-ink-3 uppercase tracking-[0.16em] mb-3">Call Center</span>
+                <a
+                  href={site.phoneHref}
+                  className="block text-[1.875rem] font-bold text-ink hover:text-brand transition-colors"
+                >
+                  {site.phone}
+                </a>
+                <p className="text-[0.875rem] text-ink-2 mt-2 leading-relaxed">
+                  Available Monday to Thursday: 8:00 AM – 5:00 PM<br />
+                  Friday: 8:00 AM – 12:00 PM
+                </p>
+              </div>
+
+              {/* Email */}
+              <div>
+                <span className="inline-block text-[0.6875rem] font-semibold text-ink-3 uppercase tracking-[0.16em] mb-3">Email</span>
+                <a
+                  href={`mailto:${site.email}`}
+                  className="block text-[1.0625rem] font-bold text-ink hover:text-brand transition-colors break-all"
+                >
+                  {site.email}
+                </a>
+              </div>
+
+              {/* Address */}
+              <div>
+                <span className="inline-block text-[0.6875rem] font-semibold text-ink-3 uppercase tracking-[0.16em] mb-3">Address</span>
+                <address className="text-[0.9375rem] leading-relaxed text-ink-2 not-italic font-medium">
+                  {site.address.street}<br />
+                  {site.address.city}, {site.address.state} {site.address.zip}
+                </address>
+              </div>
+
+              {/* Social Networks */}
+              <div className="text-left">
+                <span className="inline-block text-[0.6875rem] font-semibold text-ink-3 uppercase tracking-[0.16em] mb-4">Social networks</span>
+                <div className="flex justify-start gap-3">
+                  <a
+                    href={site.social.facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-hairline/50 text-ink-2 hover:bg-brand hover:text-white hover:border-brand transition-all"
+                  >
+                    <SocialGlyph name="facebook" />
+                  </a>
+                  <a
+                    href={site.social.google}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Google"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-hairline/50 text-ink-2 hover:bg-brand hover:text-white hover:border-brand transition-all"
+                  >
+                    <SocialGlyph name="google" />
+                  </a>
+                  <a
+                    href={site.social.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-hairline/50 text-ink-2 hover:bg-brand hover:text-white hover:border-brand transition-all"
+                  >
+                    <SocialGlyph name="instagram" />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div className="group flex flex-col justify-between rounded-[1.75rem] border border-hairline/80 bg-white p-7.5 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-xl hover:shadow-brand/5">
-            <div>
-              <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-brand-tint text-brand transition-transform duration-300 group-hover:scale-105">
-                <Icon name="pin" className="h-5.5 w-5.5" />
-              </div>
-              <h2 className="font-tight mt-6 text-xl font-bold text-ink">Visit our practice</h2>
-              <address className="mt-2 text-[0.9375rem] leading-relaxed text-ink-2 not-italic">
-                {site.address.street}
-                <br />
-                {site.address.city}, {site.address.state} {site.address.zip}
-              </address>
+          {/* Right: Get in Touch Form */}
+          <div className="bg-ink-6 rounded-[2rem] p-8 md:p-12">
+            <div className="mb-8">
+              <h2 className="font-tight text-[1.75rem] leading-[1.1] font-normal text-ink mb-3">Get in Touch</h2>
+              <p className="text-[0.9375rem] leading-relaxed text-ink-2">
+                Send us a message and we'll respond within one business day.
+              </p>
             </div>
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand transition-colors hover:text-brand-dark"
-            >
-              Open in Google Maps
-              <Icon name="arrow" className="h-3.5 w-3.5 text-aqua transition-transform group-hover:translate-x-1" />
-            </a>
-          </div>
-
-          <div className="group flex flex-col justify-between rounded-[1.75rem] border border-hairline/80 bg-white p-7.5 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-brand/30 hover:shadow-xl hover:shadow-brand/5">
-            <div>
-              <div className="flex h-13 w-13 items-center justify-center rounded-2xl bg-brand-tint text-brand transition-transform duration-300 group-hover:scale-105">
-                <Icon name="clock" className="h-5.5 w-5.5" />
-              </div>
-              <h2 className="font-tight mt-6 text-xl font-bold text-ink">Office hours</h2>
-              <dl className="mt-4 space-y-2 text-[0.875rem]">
-                {hours.map((h) => (
-                  <div key={h.day} className="flex justify-between gap-4 rounded-lg px-2 py-1 transition-colors hover:bg-surface/80">
-                    <dt className="font-medium text-ink-3">{h.day.slice(0, 3)}</dt>
-                    <dd className={`font-semibold ${h.closed ? "text-mute" : "text-ink"}`}>
-                      {h.label}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            </div>
+            <AppointmentForm />
           </div>
         </div>
       </Section>
 
-      {/* Form + map ------------------------------------------------------ */}
-      <Section tone="surface" className="!pt-0">
-        <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:gap-14">
-          <div className="rounded-[2.25rem] border border-hairline/80 bg-white p-8 md:p-10 shadow-sm">
-            <SectionHeading
-              eyebrow="Request an appointment"
-              title="Tell us when suits you"
-              lead="Send this any time, day or night. We will call you back within one business day to confirm a time."
-            />
-            <div className="mt-8">
-              <AppointmentForm />
-            </div>
+      {/* Map section */}
+      <Section>
+        <div className="mb-8">
+          <SectionHeading
+            title="Visit us"
+            lead="Find us on the map below"
+            className="max-w-2xl"
+          />
+        </div>
+        <div className="group relative overflow-hidden rounded-[2.5rem] border border-hairline/80 bg-white shadow-md h-96 lg:h-[500px]">
+          <iframe
+            title={`Map showing the location of ${site.name}`}
+            src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            className="h-full w-full border-0 transition-opacity duration-300 group-hover:opacity-90"
+          />
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="absolute top-5 right-5 inline-flex items-center gap-2 rounded-full border border-hairline/80 bg-white/98 px-4 py-2.5 text-xs font-semibold text-ink shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-ink hover:text-white hover:scale-105"
+          >
+            <Icon name="arrow" className="h-4 w-4 text-aqua" />
+            Open in Maps
+          </a>
+        </div>
+      </Section>
+
+      {/* Emergency section */}
+      <Section>
+        <div className="flex flex-col items-center justify-center text-center max-w-2xl mx-auto">
+          <div className="mb-6">
+            <span className="inline-block text-[0.6875rem] font-semibold text-red-600 uppercase tracking-[0.16em] mb-3">Dental emergency</span>
           </div>
-
-          <div className="space-y-6">
-            <div className="group relative overflow-hidden rounded-[2.25rem] border border-hairline/80 bg-white shadow-md">
-              <iframe
-                title={`Map showing the location of ${site.name}`}
-                src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="h-80 w-full border-0 transition-opacity duration-300 group-hover:opacity-95"
-              />
-              <a
-                href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="absolute top-4 right-4 inline-flex items-center gap-2 rounded-full border border-hairline/80 bg-white/95 px-4 py-2 text-xs font-semibold text-ink shadow-lg backdrop-blur-md transition-all duration-300 hover:bg-ink hover:text-white hover:scale-105"
-              >
-                <Icon name="arrow" className="h-3.5 w-3.5 text-aqua" />
-                Open Maps
-              </a>
-            </div>
-
-            <div className="rounded-[1.75rem] border border-hairline/80 bg-white p-7 shadow-sm">
-              <h2 className="flex items-center gap-2.5 font-tight text-lg font-bold text-ink">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-tint text-brand">
-                  <Icon name="pin" className="h-4 w-4" />
-                </span>
-                Finding us
-              </h2>
-              <p className="mt-4 text-[0.9375rem] leading-relaxed text-ink-2">
-                {site.directions}
-              </p>
-              <ul className="mt-6 space-y-3.5 text-[0.9375rem] text-ink-2">
-                <li className="flex items-center gap-3">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-surface text-brand">
-                    <Icon name="parking" className="h-3.5 w-3.5" />
-                  </span>
-                  Free parking directly outside
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-surface text-brand">
-                    <Icon name="wheelchair" className="h-3.5 w-3.5" />
-                  </span>
-                  Ground floor, step-free entrance
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-surface text-brand">
-                    <Icon name="users" className="h-3.5 w-3.5" />
-                  </span>
-                  Caregivers and family welcome in the room
-                </li>
-              </ul>
-            </div>
-
-            <div className="rounded-[1.75rem] border border-red-200 bg-red-50/80 p-7 shadow-sm backdrop-blur-sm">
-              <h2 className="flex items-center gap-2.5 font-tight text-lg font-bold text-red-800">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-red-100 text-red-600">
-                  <Icon name="alert" className="h-4 w-4" />
-                </span>
-                Dental emergency?
-              </h2>
-              <p className="mt-3 text-[0.9375rem] leading-relaxed text-red-900/80">
-                Do not wait for a form response. Call the office immediately so we can triage you right now.
-              </p>
-              <div className="mt-5">
-                <Button href={site.phoneHref} className="w-full justify-center">
-                  <Icon name="phone" className="h-4 w-4" filled />
-                  Call {site.phone} Now
-                </Button>
-              </div>
-            </div>
+          <h2 className="font-tight text-[2rem] leading-[1.08] font-normal sm:text-[2.5rem] text-ink mb-6">
+            In pain right now? Call, do not wait it out.
+          </h2>
+          <div className="space-y-5 mb-8 text-[0.9375rem] leading-relaxed text-ink-2">
+            <p>
+              Emergency patients do not need to be established with the practice. Ring the office and describe what happened — the front desk will triage you, tell you what to do in the meantime, and get you in as quickly as we can.
+            </p>
+            <p className="font-semibold text-ink">
+              A knocked-out permanent tooth has the best chance of being saved within the first hour.
+            </p>
           </div>
+          <a
+            href={site.phoneHref}
+            className="inline-flex items-center gap-3 rounded-full bg-red-600 py-3 px-8 text-white font-semibold transition-all hover:bg-red-700 hover:shadow-lg"
+          >
+            <Icon name="phone" className="h-5 w-5" filled />
+            Call {site.phone}
+          </a>
         </div>
       </Section>
     </>

@@ -6,7 +6,7 @@
  */
 
 export const site = {
-  name: "Miller & Stevens Family Dentistry", // TODO: konfirmasi nama resmi praktik
+  name: "Miller & Stevens Family Dentistry", // TODO: konfirmasi ke klien — sumber lain bilang "Dental Associates of South OKC"
   shortName: "Miller & Stevens",
   tagline: "Caring for South OKC Smiles Since 1967",
   established: 1967,
@@ -17,20 +17,20 @@ export const site = {
   email: "frontdesk@millerstevensdental.com", // TODO
 
   address: {
-    // TODO: nomor jalan persis — belum ada di riset
-    street: "Willowbrook Gardens Complex, S Walker Ave",
+    street: "8283 S Walker Ave",
     city: "Oklahoma City",
     state: "OK",
     zip: "73139",
     country: "US",
-    lat: 35.3853,
-    lng: -97.5203,
+    lat: 35.38497,
+    lng: -97.52247,
   },
 
   directions:
-    "Half a mile south of I-240 on Walker Avenue, in the Willowbrook Gardens complex. Free parking lot, wheelchair accessible entrance.",
+    "8283 S Walker Ave, south of I-240 on Walker Avenue. Free parking lot, wheelchair accessible entrance.",
 
-  // TODO: jam praktik berbeda di 3 sumber — WAJIB dikonfirmasi ke klien
+  // TODO: jam praktik — berbeda di beberapa sumber, konfirmasi ke klien
+  // Sumber lain: Mon–Fri 7:00–5:00 PM, Sat by appointment
   hours: [
     { day: "Monday", open: "8:00 AM", close: "5:00 PM" },
     { day: "Tuesday", open: "8:00 AM", close: "5:00 PM" },
@@ -43,7 +43,7 @@ export const site = {
 
   reviews: {
     rating: 5.0,
-    count: 1249,
+    count: 1249, // TODO: angka ini suspect — bisa dari directory ID, bukan jumlah review asli
     source: "Demandforce & Google",
   },
 

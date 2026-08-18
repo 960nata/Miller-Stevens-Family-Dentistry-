@@ -16,15 +16,24 @@ export const metadata: Metadata = {
 export default function AccessibilityPage() {
   return (
     <>
-      <PageHero
-        eyebrow="Accessibility"
-        title="Accessibility statement"
-        lead="Everyone should be able to use this website and visit this office. Here is what we have done, and how to tell us when we have fallen short."
-        breadcrumbs={[
-          { name: "Home", href: "/" },
-          { name: "Accessibility", href: "/accessibility" },
-        ]}
-      />
+      <style>{`
+        .services-hero nav[aria-label="Breadcrumb"] {
+          margin-top: 47px;
+        }
+      `}</style>
+      <div className="services-hero">
+        <PageHero
+          eyebrow="Accessibility"
+          title="Accessibility statement"
+          lead="Everyone should be able to use this website and visit this office. Here is what we have done, and how to tell us when we have fallen short."
+          breadcrumbs={[
+            { name: "Home", href: "/" },
+            { name: "Accessibility", href: "/accessibility" },
+          ]}
+          actions={false}
+          height="430px"
+        />
+      </div>
 
       <Section>
         <div className="max-w-3xl space-y-10 text-[1.0625rem] leading-[1.8] text-ink-2">
